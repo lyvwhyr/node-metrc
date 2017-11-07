@@ -1,0 +1,22 @@
+dist/
+build/
+/temp
+/tmp
+node_modules/
+npm-debug.log
+dist/server/server.bundle.js
+dist/client/map/index.html
+dist/client/map/bundle.js
+.DS_Store
+.env
+coverage/
+src/client/map/protected/products.geojson
+make_rc_*.sh
+
+# VIM related garbage
+*~
+.*.swp
+.*.map
+
+*-testing-plan.md
+.directory

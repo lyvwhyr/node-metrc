@@ -1,0 +1,14 @@
+{
+  // The number of spaces a tab is equal to.
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": true,
+  "window.zoomLevel": -2,
+  "files.autoSave": "off",
+  "workbench.colorTheme": "Ayu Mirage",
+  "workbench.iconTheme": "ayu",
+  "editor.formatOnSave": true,
+  "cSpell.allowCompoundWords": true,
+  "cSpell.words": [
+    "Metrc"
+  ]
+}

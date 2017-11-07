@@ -1,0 +1,31 @@
+{
+  "name": "metrc",
+  "version": "1.0.0",
+  "description": "metrc api library",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "gts": "latest",
+    "typescript": "^2.4.1"
+  },
+  "scripts": {
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check",
+    "test": "ava --verbose --tap | tap-nyan"
+  },
+  "contributors": [
+    {
+      "name": "Brandon Moody",
+      "email": "brandon@thef33d.com"
+    }
+  ],
+  "dependencies": {
+    "ava": "^0.23.0",
+    "moment": "^2.19.1"
+  }
+}
