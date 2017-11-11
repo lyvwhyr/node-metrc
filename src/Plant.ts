@@ -93,6 +93,7 @@ export function PlantFactory(plant: MetricPlant) {
 export function PlantCollectionFactory(plants: MetricPlant[]) {
   return plants.map(PlantFactory);
 }
+
 // GET /plants/v1/flowering
 // [
 //   {

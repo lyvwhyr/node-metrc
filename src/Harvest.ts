@@ -76,6 +76,7 @@ export function HarvestFactory(harvest: MetricHarvest) {
 export function HarvestCollectionFactory(harvests: MetricHarvest[]) {
   return harvests.map(HarvestFactory);
 }
+
 // GET /harvests/v1/1
 // {
 //   "Id": 1,

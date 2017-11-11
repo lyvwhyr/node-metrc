@@ -1,72 +1,86 @@
 import * as moment from 'moment';
 
-export interface MetrcSale {
-  Id: number | null, ReceiptNumber: null,
-      SalesDateTime: 2016 - 01 - 01T17: 35: 45.000, SalesCustomerType: Consumer,
-      PatientLicenseNumber: null, CaregiverLicenseNumber: null,
-      TotalPackages: 0, TotalPrice: 0.0, Transactions: [{
-        PackageId: 71,
-        PackageLabel: ABCDEF012345670000010331,
-        ProductName: Shake,
-        QuantitySold: 1.0,
-        UnitOfMeasureName: Ounces,
-        UnitOfMeasureAbbreviation: oz,
-        TotalPrice: 9.99,
-        SalesDeliveryState: null,
-        ArchivedDate: null,
-        LastModified: 0001 - 01 - 01T00: 00: 00 + 00: 00
-      }],
-      ArchivedDate: null, LastModified: 0001 - 01 - 01T00: 00: 00 + 00: 00
+export interface MetrcTransaction {
+  PackageId: number | null;
+  PackageLabel: string | null;
+  ProductName: string | null;
+  QuantitySold: number | null;
+  UnitOfMeasureName: string | null;
+  UnitOfMeasureAbbreviation: string | null;
+  TotalPrice: number | null;
+  SalesDeliveryState: string | null;
 }
 
-interface FacilityLicense {
-  number: string | null;
-  startDate: moment.Moment | null;
-  endDate: moment.Moment | null;
-  licenseType: string | null;
+export interface MetrcReceipt {
+  Id: number | null;
+  ReceiptNumber: string | null;
+  SalesDateTime: moment.Moment | null;
+  SalesCustomerType: string | null;
+  PatientLicenseNumber: number | null;
+  CaregiverLicenseNumber: number | null;
+  TotalPackages: number | null;
+  TotalPrice: number | null;
+  Transactions: MetrcTransaction[];
+  ArchivedDate: moment.Moment | null;
+  LastModified: moment.Moment | null;
 }
 
-export default class Facility {
-  protected hireDate: moment.Moment | null;
-  protected homePage: string | null;
-  protected isOwner: boolean | null;
-  protected isManager: boolean | null;
-  protected occupations: Object[];
-  protected name: string | null;
-  protected alias: string | null;
-  protected displayName: string | null;
-  protected supportActivationDate: moment.Moment | null;
-  protected supportExpirationDate: moment.Moment | null;
-  protected supportLastPaidDate: moment.Moment | null;
-  protected license: FacilityLicense;
+export class Transaction {
+  protected packageId: number | null;
+  protected packageLabel: string | null;
+  protected productName: string | null;
+  protected quantitySold: number | null;
+  protected unitOfMeasureName: string | null;
+  protected unitOfMeasureAbbreviation: string | null;
+  protected totalPrice: number | null;
+  protected salesDeliveryState: string | null;
 
-  constructor(facility: MetrcFacility) {
-    this.hireDate = moment(facility.HireDate) || null;
-    this.homePage = facility.HomePage || null;
-    this.isOwner = facility.IsOwner || null;
-    this.isManager = facility.IsManager || null;
-    this.occupations = facility.Occupations || null;
-    this.name = facility.Name || null;
-    this.alias = facility.Alias || null;
-    this.displayName = facility.DisplayName || null;
-    this.supportActivationDate = moment(facility.SupportActivationDate) || null;
-    this.supportExpirationDate = moment(facility.SupportExpirationDate) || null;
-    this.supportLastPaidDate = moment(facility.SupportLastPaidDate) || null;
-    this.license = {
-      number: facility.License.Number || null,
-      startDate: moment(facility.License.StartDate) || null,
-      endDate: moment(facility.License.EndDate) || null,
-      licenseType: facility.License.LicenseType || null,
-    };
+  constructor(transaction: MetrcTransaction) {
+    this.packageId = transaction.PackageId;
+    this.packageLabel = transaction.PackageLabel;
+    this.productName = transaction.ProductName;
+    this.quantitySold = transaction.QuantitySold;
+    this.unitOfMeasureName = transaction.UnitOfMeasureName;
+    this.unitOfMeasureAbbreviation = transaction.UnitOfMeasureAbbreviation;
+    this.totalPrice = transaction.TotalPrice;
+    this.salesDeliveryState = transaction.SalesDeliveryState;
   }
 }
 
-export function FacilityFactory(facility: MetrcFacility) {
-  return new Facility(facility);
+export default class Receipt {
+  protected id: number | null;
+  protected receiptNumber: string | null;
+  protected salesDateTime: moment.Moment | null;
+  protected salesCustomerType: string | null;
+  protected patientLicenseNumber: number | null;
+  protected caregiverLicenseNumber: number | null;
+  protected totalPackages: number | null;
+  protected totalPrice: number | null;
+  protected transactions: MetrcTransaction[];
+  protected archivedDate: moment.Moment | null;
+  protected lastModified: moment.Moment | null;
+
+  constructor(receipt: MetrcReceipt) {
+    this.id = receipt.Id || null;
+    this.receiptNumber = receipt.ReceiptNumber || null;
+    this.salesDateTime = receipt.SalesDateTime || null;
+    this.salesCustomerType = receipt.SalesCustomerType || null;
+    this.patientLicenseNumber = receipt.PatientLicenseNumber || null;
+    this.caregiverLicenseNumber = receipt.CaregiverLicenseNumber || null;
+    this.totalPackages = receipt.TotalPackages || null;
+    this.totalPrice = receipt.TotalPrice || null;
+    this.transactions = receipt.Transactions || null;
+    this.archivedDate = moment(receipt.ArchivedDate) || null;
+    this.lastModified = moment(receipt.LastModified) || null;
+  }
 }
 
-export function FacilityCollectionFactory(facilities: MetrcFacility[]) {
-  return facilities.map(FacilityFactory)
+export function ReceiptFactory(sale: MetrcReceipt) {
+  return new Receipt(sale);
+}
+
+export function ReceiptCollectionFactory(receipts: MetrcReceipt[]) {
+  return receipts.map(ReceiptFactory);
 }
 
 // GET /sales/v1/receipts
